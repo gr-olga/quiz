@@ -2,7 +2,7 @@ import {useSelector} from 'react-redux';
 import {Button, Carousel} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {MultipleQuestion} from '../MultipleQuestion.tsx';
-import {BooleanQuestion} from '../BooleanQuestion.tsx';
+import {BooleanQuestion} from '../BooleanQuestion/BooleanQuestion.tsx';
 import {decodeHTMLEntities} from '../../utilas';
 import {Question} from '../../types/quizTypes.ts';
 import {RootState} from '../../store';
