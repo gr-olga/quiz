@@ -1,10 +1,10 @@
 import {configureStore, EnhancedStore} from '@reduxjs/toolkit';
-import {questionsReducer} from './quizStore.ts'
+import {questionsReducer} from './quizStore.ts';
 
 const store: EnhancedStore = configureStore({
-    reducer: {
-        questions: questionsReducer,
-    },
+  reducer: {
+    questions: questionsReducer
+  }
 });
 
 export type AppDispatch = typeof store.dispatch;
