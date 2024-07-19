@@ -6,7 +6,7 @@ import {IQuestion} from "../types/quizTypes.ts";
 import {BooleanQuestion} from "./BooleanQuestion.tsx";
 import {decodeHTMLEntities} from "../utilas";
 
-export const QuestionsComponent: React.FC = () => {
+export const QuizQuestions: React.FC = () => {
     const {questions, loading, error} = useSelector((state: RootState) => state.questions);
 
     if (loading) return <p>Loading...</p>;

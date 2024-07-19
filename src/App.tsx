@@ -1,5 +1,5 @@
 import './App.css'
-import {QuestionsComponent} from "./components/QuizQuestions.tsx";
+import {QuizQuestions} from "./components/QuizQuestions.tsx";
 import {useEffect, useState} from "react";
 import {fetchCategories, fetchQuestions} from "./api/api.ts";
 import {fetchQuestionsSuccess, setScore} from "./store/quizStore.ts";
@@ -79,7 +79,7 @@ function App() {
             </div>
             <div>
                 <h1>Quiz</h1>
-                <QuestionsComponent/>
+                <QuizQuestions/>
             </div>
         </>
     )
