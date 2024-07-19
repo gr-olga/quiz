@@ -1,7 +1,6 @@
 import {Question} from '../types/quizTypes.ts';
 import {createSlice, PayloadAction, Slice} from '@reduxjs/toolkit';
 
-
 interface QuestionsState {
   questions: Question[];
   loading: boolean;
@@ -36,7 +35,6 @@ const questionsSlice: Slice<QuestionsState> = createSlice({
 
 
 export const {
-  fetchQuestionsStart,
   fetchQuestionsSuccess,
   setScore
 } = questionsSlice.actions;

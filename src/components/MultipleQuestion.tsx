@@ -1,6 +1,7 @@
 import {decodeHTMLEntities} from '../utilas';
 import {useDispatch} from 'react-redux';
 import {setScore} from '../store/quizStore.ts';
+import {FormEvent} from 'react';
 
 interface MultipleQuestionProps {
   question: string;
@@ -15,7 +16,7 @@ export const MultipleQuestion = ({question, correctAnswer, incorrectAnswers}: Mu
 
   const dispatch = useDispatch();
 
-  const handleScore = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleScore = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const answer = formData.get('answer') as string;
@@ -23,6 +24,7 @@ export const MultipleQuestion = ({question, correctAnswer, incorrectAnswers}: Mu
       dispatch(setScore(10));
     }
   };
+
   return (
       <div>
         <h3>{decodeHTMLEntities(question)}</h3>
