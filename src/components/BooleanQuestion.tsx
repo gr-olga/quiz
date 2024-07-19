@@ -1,6 +1,7 @@
 import {decodeHTMLEntities} from '../utilas';
 import {useDispatch} from 'react-redux';
 import {setScore} from '../store/quizStore.ts';
+import {FormEvent} from 'react';
 
 interface BooleanQuestionProps {
   question: string,
@@ -12,7 +13,7 @@ export const BooleanQuestion = ({question, correctAnswer, incorrectAnswers}: Boo
 
   const dispatch = useDispatch();
 
-  const handleScore = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleScore = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const answer = formData.get('answer') as string;
@@ -25,11 +26,16 @@ export const BooleanQuestion = ({question, correctAnswer, incorrectAnswers}: Boo
       <div>
         <h3>{decodeHTMLEntities(question)}</h3>
         <form onSubmit={handleScore}>
-          <input type="radio" name="answer" value={correctAnswer}/>
-          <label htmlFor="true">{correctAnswer}</label>
-          <input type="radio" name="answer" value={incorrectAnswers[0]}/>
-          <label htmlFor="false">{incorrectAnswers[0]}</label>
+          <label>
+            <input type="radio" name="answer" value={correctAnswer}/>
+            <span>{correctAnswer}</span>
+          </label>
+          <label>
+            <input type="radio" name="answer" value={incorrectAnswers[0]}/>
+            <span>{incorrectAnswers[0]}</span>
+          </label>
           <button type="submit">Submit</button>
+          <br/>
         </form>
       </div>
   );
