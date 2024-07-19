@@ -1,4 +1,4 @@
-export interface IQuestion {
+export interface Question {
     type?: QuestionType;
     difficulty: QuizLevel,
     category: QuizCategory,

@@ -1,9 +1,9 @@
-import {IQuestion} from "../types/quizTypes.ts";
+import {Question} from "../types/quizTypes.ts";
 import {createSlice, PayloadAction, Slice} from "@reduxjs/toolkit";
 
 
 interface QuestionsState {
-    questions: IQuestion[];
+    questions: Question[];
     loading: boolean;
     error: string | null;
     score: number;
@@ -24,7 +24,7 @@ const questionsSlice:Slice<QuestionsState> = createSlice({
             state.loading = true;
             state.error = null;
         },
-        fetchQuestionsSuccess(state: QuestionsState, action: PayloadAction<IQuestion[]>): void {
+        fetchQuestionsSuccess(state: QuestionsState, action: PayloadAction<Question[]>): void {
             state.loading = false;
             state.questions = action.payload;
         },

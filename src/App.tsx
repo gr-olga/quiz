@@ -5,7 +5,7 @@ import {fetchCategories, fetchQuestions} from "./api/api.ts";
 import {fetchQuestionsSuccess, setScore} from "./store/quizStore.ts";
 import {AppDispatch, RootState} from "./store";
 import {useDispatch, useSelector} from "react-redux";
-import {IQuestion, QuestionType, QuizCategory, QuizLevel} from "./types/quizTypes.ts";
+import {Question, QuestionType, QuizCategory, QuizLevel} from "./types/quizTypes.ts";
 
 function App() {
 
@@ -26,7 +26,7 @@ function App() {
     console.log('score', score);
 
     useEffect(() => {
-        fetchQuestions(categoryID, difficulty, type).then((data: Array<IQuestion>) => {
+        fetchQuestions(categoryID, difficulty, type).then((data: Array<Question>) => {
             console.log('dataApp', data);
             dispatch(fetchQuestionsSuccess(data));
         })
