@@ -1,4 +1,4 @@
-import './App.css';
+import styles from './App.module.scss';
 import {QuizQuestions} from './components/QuizQuestions/QuizQuestions.tsx';
 import {FormEvent, useEffect, useState} from 'react';
 import {fetchCategories, fetchQuestions} from './api/api.ts';
@@ -49,12 +49,12 @@ function App() {
   };
 
   return (
-      <>
-        <div>
-          <h2> Score: {score}</h2>
-          <form onSubmit={handleSubmit}>
-            <h2>Select Category</h2>
-            <select onChange={(e) => setFormCategory(Number(e.target.value))}>
+      <div className={styles.app}>
+        <div className={styles.appContainer}>
+          {/*<h2> Score: {score}</h2>*/}
+          <form onSubmit={handleSubmit} className={styles.formContainer}>
+            <h2 className={styles.formTitle}>Select Category</h2>
+            <select onChange={(e) => setFormCategory(Number(e.target.value))} className={styles.formSelect}>
               <option value="">Any Category</option>
               {allCategories?.map((category: QuizCategory) => (
                   <option key={category.id} value={category.id}>
@@ -62,27 +62,27 @@ function App() {
                   </option>
               ))}
             </select>
-            <h2>Select Difficulty</h2>
-            <select onChange={(e) => setFormDifficulty(e.target.value as QuizLevel)}>
+            <h2 className={styles.formTitle}>Select Difficulty</h2>
+            <select onChange={(e) => setFormDifficulty(e.target.value as QuizLevel)} className={styles.formSelect}>
               <option value="">Any Difficulty</option>
               <option value="easy">Easy</option>
               <option value="medium">Medium</option>
               <option value="hard">Hard</option>
             </select>
-            <h2>Select Type</h2>
-            <select onChange={(e) => setFormType(e.target.value as QuestionType)}>
+            <h2 className={styles.formTitle}>Select Type</h2>
+            <select onChange={(e) => setFormType(e.target.value as QuestionType)} className={styles.formSelect}>
               <option value="">Any Type</option>
               <option value="multiple">Multiple Choice</option>
               <option value="boolean">True/False</option>
             </select>
-            <button type="submit">Start Quiz</button>
+            <button type="submit" className={styles.formButton}>Start Quiz</button>
           </form>
         </div>
         <div>
           <h1>Quiz</h1>
           <QuizQuestions/>
         </div>
-      </>
+      </div>
   );
 }
 
