@@ -3,24 +3,14 @@ import {Question, QuestionType, QuizCategory, QuizLevel} from "../types/quizType
 
 const BASE_URL = 'https://opentdb.com/api.php?amount=10';
 
-export const fetchQuestions = async (category?: number, difficulty?: QuizLevel, type?: QuestionType,): Promise<Question[]> => {
-    try {
-        const url = `${BASE_URL}${category ? `&category=${category}` : ''}${difficulty ? `&difficulty=${difficulty}` : ''}${type ? `&type=${type}` : ''}`;
-        const res: AxiosResponse<{ results: Question[] }> = await axios.get(url);
-        return res.data.results;
-    } catch (e) {
-        console.log('Error:', e);
-    }
+export const fetchQuestions = async (category?: number, difficulty?: QuizLevel, type?: QuestionType,): Promise<ReadonlyArray<Question>> => {
+    const url: string = `${BASE_URL}${category ? `&category=${category}` : ''}${difficulty ? `&difficulty=${difficulty}` : ''}${type ? `&type=${type}` : ''}`;
+    const res: AxiosResponse<{ results: Question[] }> = await axios.get(url);
+    return res.data.results;
 }
 
-export const fetchCategories = async () => {
-    try {
-        const res: AxiosResponse<{
-            trivia_categories: ReadonlyArray<QuizCategory>
-        }> = await axios.get('https://opentdb.com/api_category.php');
-        console.log('api', res.data.trivia_categories);
-        return res.data.trivia_categories;
-    } catch (e) {
-        console.log('Error:', e);
-    }
+export const fetchCategories = async (): Promise<ReadonlyArray<QuizCategory>> => {
+    const res: AxiosResponse<{ trivia_categories: ReadonlyArray<QuizCategory> }> = await axios.get('https://opentdb.com/api_category.php');
+    console.log('api', res.data.trivia_categories);
+    return res.data.trivia_categories;
 }

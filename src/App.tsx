@@ -25,8 +25,8 @@ function App() {
     const score = useSelector((state: RootState) => state.questions.score);
     console.log('score', score);
 
-    useEffect(() => {
-        fetchQuestions(categoryID, difficulty, type).then((data: Array<Question>) => {
+    useEffect((): void => {
+        fetchQuestions(categoryID, difficulty, type).then((data: ReadonlyArray<Question>): void => {
             console.log('dataApp', data);
             dispatch(fetchQuestionsSuccess(data));
         })
@@ -34,7 +34,7 @@ function App() {
     }, [dispatch, categoryID, difficulty, type]);
 
 
-    useEffect(() => {
+    useEffect((): void => {
         fetchCategories().then((data: ReadonlyArray<QuizCategory> | undefined) => setAllCategories(data));
     }, []);
 
