@@ -2,10 +2,12 @@ import {decodeHTMLEntities} from "../utilas";
 
 interface BooleanQuestionProps {
     question: string,
-    correctAnswer: ReadonlyArray<string>
+    correctAnswer: string
 }
 
 export const BooleanQuestion = ({question, correctAnswer}: BooleanQuestionProps) => {
+
+console.log("correctAnswer", correctAnswer)
     return (
         <div>
             <h3>{decodeHTMLEntities(question)}</h3>

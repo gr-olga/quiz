@@ -9,49 +9,64 @@ import {IQuestion, QuestionType, QuizCategory, QuizLevel} from "./types/quizType
 
 function App() {
     const dispatch: AppDispatch = useDispatch();
-    const [category, setCategory] = useState<number | undefined>(undefined);
+    const [categoryID, setCategory] = useState<number | undefined>(undefined);
     const [difficulty, setDifficulty] = useState<QuizLevel | undefined>(undefined);
     const [type, setType] = useState<QuestionType | undefined>(undefined);
 
-    const [allCategories, setAllCategories] = useState<ReadonlyArray<QuizCategory>>([]);
+    const [allCategories, setAllCategories] = useState<ReadonlyArray<QuizCategory>>();
+
+    // Local state for form inputs
+    const [formCategory, setFormCategory] = useState<number | undefined>(undefined);
+    const [formDifficulty, setFormDifficulty] = useState<QuizLevel | undefined>(undefined);
+    const [formType, setFormType] = useState<QuestionType | undefined>(undefined);
 
     useEffect(() => {
-        fetchQuestions(category, difficulty, type).then((data: ReadonlyArray<IQuestion>) => {
+        fetchQuestions(categoryID, difficulty, type).then((data: Array<IQuestion>) => {
             console.log('dataApp', data);
             dispatch(fetchQuestionsSuccess(data));
         })
 
-    }, [dispatch, category, difficulty, type]);
+    }, [dispatch, categoryID, difficulty, type]);
 
     useEffect(() => {
-        fetchCategories().then((data) => setAllCategories(data));
+        fetchCategories().then((data: ReadonlyArray<QuizCategory> | undefined) => setAllCategories(data));
     }, []);
 
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setCategory(formCategory);
+        setDifficulty(formDifficulty);
+        setType(formType);
+    };
 
     return (
         <>
             <div>
-                <form onSubmit={}>
+                <form onSubmit={handleSubmit}>
                     <h2>Select Category</h2>
-                    <select onChange={(e) => setCategory(e.target.value as number)}>
-                        <option value={undefined}>Any Category</option>
-                        {allCategories.map((category: QuizCategory) => <option key={category.id}
-                                                                               value={category.id}>{category.name}</option>)}
+                    <select onChange={(e) => setFormCategory(Number(e.target.value))}>
+                        <option value="">Any Category</option>
+                        {allCategories?.map((category: QuizCategory) => (
+                            <option key={category.id} value={category.id}>
+                                {category.name}
+                            </option>
+                        ))}
                     </select>
                     <h2>Select Difficulty</h2>
-                    <select onChange={(e) => setDifficulty(e.target.value as QuizLevel)}>
-                        <option value={undefined}>Any Difficulty</option>
-                        <option value='easy'>Easy</option>
-                        <option value='medium'>Medium</option>
-                        <option value='hard'>Hard</option>
+                    <select onChange={(e) => setFormDifficulty(e.target.value as QuizLevel)}>
+                        <option value="">Any Difficulty</option>
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
                     </select>
                     <h2>Select Type</h2>
-                    <select onChange={(e) => setType(e.target.value as QuestionType)}>
-                        <option value={undefined}>Any Type</option>
-                        <option value='multiple'>Multiple Choice</option>
-                        <option value='boolean'>True/False</option>
+                    <select onChange={(e) => setFormType(e.target.value as QuestionType)}>
+                        <option value="">Any Type</option>
+                        <option value="multiple">Multiple Choice</option>
+                        <option value="boolean">True/False</option>
                     </select>
-                    <button type='submit'>Start Quiz</button>
+                    <button type="submit">Start Quiz</button>
                 </form>
             </div>
             <div>

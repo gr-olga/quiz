@@ -4,6 +4,7 @@ import {RootState} from '../store';
 import {MultipleQuestion} from "./MultipleQuestion.tsx";
 import {IQuestion} from "../types/quizTypes.ts";
 import {BooleanQuestion} from "./BooleanQuestion.tsx";
+import {decodeHTMLEntities} from "../utilas";
 
 export const QuestionsComponent: React.FC = () => {
     const {questions, loading, error} = useSelector((state: RootState) => state.questions);
@@ -16,7 +17,7 @@ export const QuestionsComponent: React.FC = () => {
             {questions.map((question: IQuestion, index: number) => {
                 return (
                     <div key={index}>
-                        <h2>Question {question.category}</h2>
+                        <h2>Question: {(question.category) ? decodeHTMLEntities(question.category) : ''}</h2>
                         {(question.type === 'multiple') ?
                             <MultipleQuestion question={question.question} correctAnswer={question.correct_answer}
                                               incorrectAnswers={question.incorrect_answers}/> :
