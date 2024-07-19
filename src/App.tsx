@@ -1,5 +1,5 @@
 import './App.css';
-import {QuizQuestions} from './components/QuizQuestions.tsx';
+import {QuizQuestions} from './components/QuizQuestions/QuizQuestions.tsx';
 import {FormEvent, useEffect, useState} from 'react';
 import {fetchCategories, fetchQuestions} from './api/api.ts';
 import {fetchQuestionsSuccess, setScore} from './store/quizStore.ts';
