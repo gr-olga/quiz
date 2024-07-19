@@ -21,8 +21,7 @@ export const QuizQuestions: React.FC = () => {
                 {(question.type === 'multiple') ?
                     <MultipleQuestion question={question} correctAnswer={question.correct_answer}
                                       incorrectAnswers={question.incorrect_answers}/> :
-                    <BooleanQuestion question={question.question} correctAnswer={question.correct_answer}
-                                     incorrectAnswers={question.incorrect_answers}/>
+                    <BooleanQuestion question={question} correctAnswer={question.correct_answer}/>
                 }
               </div>
           );
