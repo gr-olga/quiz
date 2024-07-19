@@ -22,8 +22,9 @@ function App() {
   const [formDifficulty, setFormDifficulty] = useState<QuizLevel | undefined>(undefined);
   const [formType, setFormType] = useState<QuestionType | undefined>(undefined);
 
-  const score = useSelector((state: RootState) => state.questions.score);
-  console.log('score', score);
+  const score = useSelector((state: RootState) => {
+    return Object.values(state.questions.score).reduce((acc: number, curr: number) => acc + curr, 0);
+  });
 
   useEffect((): void => {
     fetchQuestions(categoryID, difficulty, type).then((data: ReadonlyArray<Question>): void => {

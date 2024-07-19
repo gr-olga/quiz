@@ -5,12 +5,12 @@ interface QuestionsState {
   questions: Question[];
   loading: boolean;
   error: string | null;
-  score: number;
+  score: Record<string, number>
 }
 
 const initialState: QuestionsState = {
   questions: [],
-  score: 0,
+  score: {},
   loading: false,
   error: null
 };
@@ -27,8 +27,8 @@ const questionsSlice: Slice<QuestionsState> = createSlice({
       state.loading = false;
       state.questions = action.payload;
     },
-    setScore(state: QuestionsState, action: PayloadAction<number>): void {
-      state.score += action.payload;
+    setScore(state: QuestionsState, action: PayloadAction<{ name: string, value: number }>): void {
+      state.score = {...state.score, [action.payload.name]: action.payload.value};
     }
   }
 });

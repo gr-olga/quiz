@@ -19,7 +19,7 @@ export const QuizQuestions: React.FC = () => {
               <div key={index}>
                 <h2>Question: {(question.category) ? decodeHTMLEntities(question.category) : ''}</h2>
                 {(question.type === 'multiple') ?
-                    <MultipleQuestion question={question.question} correctAnswer={question.correct_answer}
+                    <MultipleQuestion question={question} correctAnswer={question.correct_answer}
                                       incorrectAnswers={question.incorrect_answers}/> :
                     <BooleanQuestion question={question.question} correctAnswer={question.correct_answer}
                                      incorrectAnswers={question.incorrect_answers}/>
