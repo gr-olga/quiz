@@ -21,7 +21,7 @@ export const QuestionsComponent: React.FC = () => {
                         {(question.type === 'multiple') ?
                             <MultipleQuestion question={question.question} correctAnswer={question.correct_answer}
                                               incorrectAnswers={question.incorrect_answers}/> :
-                            <BooleanQuestion question={question.question} correctAnswer={question.correct_answer}/>
+                            <BooleanQuestion question={question.question} correctAnswer={question.correct_answer} incorrectAnswers={question.incorrect_answers}/>
                         }
                     </div>
                 )

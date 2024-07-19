@@ -2,23 +2,28 @@ import './App.css'
 import {QuestionsComponent} from "./components/QuizQuestions.tsx";
 import {useEffect, useState} from "react";
 import {fetchCategories, fetchQuestions} from "./api/api.ts";
-import {fetchQuestionsSuccess} from "./store/quizStore.ts";
-import {AppDispatch} from "./store";
-import {useDispatch} from "react-redux";
+import {fetchQuestionsSuccess, setScore} from "./store/quizStore.ts";
+import {AppDispatch, RootState} from "./store";
+import {useDispatch, useSelector} from "react-redux";
 import {IQuestion, QuestionType, QuizCategory, QuizLevel} from "./types/quizTypes.ts";
 
 function App() {
+
     const dispatch: AppDispatch = useDispatch();
+
     const [categoryID, setCategory] = useState<number | undefined>(undefined);
     const [difficulty, setDifficulty] = useState<QuizLevel | undefined>(undefined);
     const [type, setType] = useState<QuestionType | undefined>(undefined);
 
     const [allCategories, setAllCategories] = useState<ReadonlyArray<QuizCategory>>();
 
-    // Local state for form inputs
+
     const [formCategory, setFormCategory] = useState<number | undefined>(undefined);
     const [formDifficulty, setFormDifficulty] = useState<QuizLevel | undefined>(undefined);
     const [formType, setFormType] = useState<QuestionType | undefined>(undefined);
+
+    const score = useSelector((state: RootState) => state.questions.score);
+    console.log('score', score);
 
     useEffect(() => {
         fetchQuestions(categoryID, difficulty, type).then((data: Array<IQuestion>) => {
@@ -27,6 +32,7 @@ function App() {
         })
 
     }, [dispatch, categoryID, difficulty, type]);
+
 
     useEffect(() => {
         fetchCategories().then((data: ReadonlyArray<QuizCategory> | undefined) => setAllCategories(data));
@@ -38,11 +44,13 @@ function App() {
         setCategory(formCategory);
         setDifficulty(formDifficulty);
         setType(formType);
+        setScore(0);
     };
 
     return (
         <>
             <div>
+                <h2> Score: {score}</h2>
                 <form onSubmit={handleSubmit}>
                     <h2>Select Category</h2>
                     <select onChange={(e) => setFormCategory(Number(e.target.value))}>

@@ -1,40 +1,36 @@
 import {IQuestion} from "../types/quizTypes.ts";
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction, Slice} from "@reduxjs/toolkit";
+
 
 interface QuestionsState {
     questions: IQuestion[];
     loading: boolean;
     error: string | null;
+    score: number;
 }
 
 const initialState: QuestionsState = {
     questions: [],
+    score: 0,
     loading: false,
     error: null,
 };
 
-const questionsSlice = createSlice({
+const questionsSlice:Slice<QuestionsState> = createSlice({
     name: 'questions',
     initialState,
     reducers: {
-        fetchQuestionsStart(state) {
+        fetchQuestionsStart(state: QuestionsState): void {
             state.loading = true;
             state.error = null;
         },
-        fetchQuestionsSuccess(state, action: PayloadAction<IQuestion[]>) {
+        fetchQuestionsSuccess(state: QuestionsState, action: PayloadAction<IQuestion[]>): void {
             state.loading = false;
             state.questions = action.payload;
         },
-        fetchQuestionsFailure(state, action: PayloadAction<string>) {
-            state.loading = false;
-            state.error = action.payload;
-        },
-        addQuestion(state, action: PayloadAction<IQuestion>) {
-            state.questions.push(action.payload);
-        },
-        removeQuestion(state, action: PayloadAction<number>) {
-            state.questions.splice(action.payload, 1);
-        },
+        setScore(state: QuestionsState, action: PayloadAction<number>): void {
+            state.score += action.payload;
+        }
     },
 });
 
@@ -42,9 +38,7 @@ const questionsSlice = createSlice({
 export const {
     fetchQuestionsStart,
     fetchQuestionsSuccess,
-    fetchQuestionsFailure,
-    addQuestion,
-    removeQuestion,
+    setScore
 } = questionsSlice.actions;
 
 export const questionsReducer = questionsSlice.reducer;

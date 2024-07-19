@@ -4,7 +4,7 @@ export interface IQuestion {
     category: QuizCategory,
     question: string,
     correct_answer: string,
-    incorrect_answers: ReadonlyArray<string>
+    incorrect_answers: Array<string>
 }
 
 export type QuestionType = 'multiple' | 'boolean';
