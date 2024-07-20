@@ -53,28 +53,34 @@ function App() {
         <div className={styles.appContainer}>
           {/*<h2> Score: {score}</h2>*/}
           <form onSubmit={handleSubmit} className={styles.formContainer}>
-            <h2 className={styles.formTitle}>Select Category</h2>
-            <select onChange={(e) => setFormCategory(Number(e.target.value))} className={styles.formSelect}>
-              <option value="">Any Category</option>
-              {allCategories?.map((category: QuizCategory) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-              ))}
-            </select>
-            <h2 className={styles.formTitle}>Select Difficulty</h2>
-            <select onChange={(e) => setFormDifficulty(e.target.value as QuizLevel)} className={styles.formSelect}>
-              <option value="">Any Difficulty</option>
-              <option value="easy">Easy</option>
-              <option value="medium">Medium</option>
-              <option value="hard">Hard</option>
-            </select>
-            <h2 className={styles.formTitle}>Select Type</h2>
-            <select onChange={(e) => setFormType(e.target.value as QuestionType)} className={styles.formSelect}>
-              <option value="">Any Type</option>
-              <option value="multiple">Multiple Choice</option>
-              <option value="boolean">True/False</option>
-            </select>
+            <div className={styles.selectContainer}>
+              <h2 className={styles.formTitle}>Select Category</h2>
+              <select onChange={(e) => setFormCategory(Number(e.target.value))} className={styles.formSelect}>
+                <option value="">Any Category</option>
+                {allCategories?.map((category: QuizCategory) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                ))}
+              </select>
+            </div>
+            <div className={styles.selectContainer}>
+              <h2 className={styles.formTitle}>Select Difficulty</h2>
+              <select onChange={(e) => setFormDifficulty(e.target.value as QuizLevel)} className={styles.formSelect}>
+                <option value="">Any Difficulty</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </div>
+            <div className={styles.selectContainer}>
+              <h2 className={styles.formTitle}>Select Type</h2>
+              <select onChange={(e) => setFormType(e.target.value as QuestionType)} className={styles.formSelect}>
+                <option value="">Any Type</option>
+                <option value="multiple">Multiple Choice</option>
+                <option value="boolean">True/False</option>
+              </select>
+            </div>
             <button type="submit" className={styles.formButton}>Start Quiz</button>
           </form>
         </div>
