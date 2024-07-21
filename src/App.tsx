@@ -24,7 +24,6 @@ function App() {
 
   useEffect((): void => {
     fetchQuestions(categoryID, difficulty, type).then((data: ReadonlyArray<Question>): void => {
-      // console.log('Questions:', data);
       dispatch(fetchQuestionsSuccess(data));
     });
 

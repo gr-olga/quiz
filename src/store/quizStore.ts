@@ -33,7 +33,6 @@ const questionsSlice: Slice<QuestionsState> = createSlice({
   }
 });
 
-
 export const {
   fetchQuestionsSuccess,
   setScore
