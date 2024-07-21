@@ -51,7 +51,7 @@ function App() {
     return Object.values(state.questions.score).reduce((acc: number, curr: unknown) => acc + Number(curr), 0);
   });
 
-  const isDone: boolean = currentQuestion === questionsCount;
+  const isDone: boolean = (currentQuestion === questionsCount) && (questionsCount !== 0);
 
   return (
       <div className={styles.app}>
