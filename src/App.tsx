@@ -18,11 +18,9 @@ function App() {
 
   const [allCategories, setAllCategories] = useState<ReadonlyArray<QuizCategory>>();
 
-
   const [formCategory, setFormCategory] = useState<number | undefined>(undefined);
   const [formDifficulty, setFormDifficulty] = useState<QuizLevel | undefined>(undefined);
   const [formType, setFormType] = useState<QuestionType | undefined>(undefined);
-
 
   useEffect((): void => {
     fetchQuestions(categoryID, difficulty, type).then((data: ReadonlyArray<Question>): void => {
@@ -90,7 +88,7 @@ function App() {
             <button type="submit" className={styles.formButton}>Start Quiz</button>
           </form>
         </div>
-        { isDone ? <PopUpScore score={score} onClose={() => setScore(0)}/> : null }
+        { isDone ? <PopUpScore score={score} onClose={() => window.location.reload()}/> : null }
         <div>
           <h1>Quiz</h1>
           <div>Question {currentQuestion >= 10 ? 10 : currentQuestion + 1}/{questionsCount}</div>

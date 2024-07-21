@@ -13,7 +13,7 @@ export const PopUpScore = ({score, onClose}: PopUpScoreProps) => {
         <div className={styles.popupContainer}>
           <h1 className={styles.scoreTitle}>Your score:</h1>
           <div className={styles.scoreValue}>{score}</div>
-          <button className={styles.closeButton} onClick={onClose}>Close</button>
+          <button className={styles.closeButton} onClick={onClose}>Again</button>
         </div>
       </div>
   );
