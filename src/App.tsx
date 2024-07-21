@@ -6,6 +6,7 @@ import {fetchQuestionsSuccess, setScore} from './store/quizStore.ts';
 import {AppDispatch, RootState} from './store';
 import {useDispatch, useSelector} from 'react-redux';
 import {Question, QuestionType, QuizCategory, QuizLevel} from './types/quizTypes.ts';
+import {PopUpScore} from './components/PopUpScore/PopUpScore.tsx';
 
 function App() {
 
@@ -22,9 +23,6 @@ function App() {
   const [formDifficulty, setFormDifficulty] = useState<QuizLevel | undefined>(undefined);
   const [formType, setFormType] = useState<QuestionType | undefined>(undefined);
 
-  const score = useSelector((state: RootState) => {
-    return Object.values(state.questions.score).reduce((acc: number, curr: number) => acc + curr, 0);
-  });
 
   useEffect((): void => {
     fetchQuestions(categoryID, difficulty, type).then((data: ReadonlyArray<Question>): void => {
@@ -48,10 +46,18 @@ function App() {
     setScore(0);
   };
 
+  const currentQuestion: number = useSelector((state: RootState) => Object.keys(state.questions.score).length);
+  const questionsCount: number = useSelector((state: RootState) => state.questions.questions.length);
+
+  const score: number = useSelector((state: RootState) => {
+    return Object.values(state.questions.score).reduce((acc: number, curr: unknown) => acc + Number(curr), 0);
+  });
+
+  const isDone: boolean = currentQuestion === questionsCount;
+
   return (
       <div className={styles.app}>
         <div className={styles.appContainer}>
-          {/*<h2> Score: {score}</h2>*/}
           <form onSubmit={handleSubmit} className={styles.formContainer}>
             <div className={styles.selectContainer}>
               <h2 className={styles.formTitle}>Select Category</h2>
@@ -84,8 +90,11 @@ function App() {
             <button type="submit" className={styles.formButton}>Start Quiz</button>
           </form>
         </div>
+        { isDone ? <PopUpScore score={score} onClose={() => setScore(0)}/> : null }
         <div>
           <h1>Quiz</h1>
+          <div>Question {currentQuestion >= 10 ? 10 : currentQuestion + 1}/{questionsCount}</div>
+          {<div>Score: {score}</div>}
           <QuizQuestions/>
         </div>
       </div>

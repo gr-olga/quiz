@@ -1,21 +1,16 @@
 import {decodeHTMLEntities} from '../../utilas';
-import {useDispatch} from 'react-redux';
-import {setScore} from '../../store/quizStore.ts';
 import {Question} from '../../types/quizTypes.ts';
 import styles from './booleanQuestion.module.scss';
 
 interface BooleanQuestionProps {
-  question: Question,
-  correctAnswer: string,
+  question: Question;
+  correctAnswer: string;
+  onAnswered: (answer: string) => void;
 }
 
-export const BooleanQuestion = ({question, correctAnswer}: BooleanQuestionProps) => {
+export const BooleanQuestion = ({question, onAnswered}: BooleanQuestionProps) => {
 
-  const dispatch = useDispatch();
-
-  const handleScore = (question: Question, answer: string, correctAnswer: string) => {
-    dispatch(setScore({name: question.question, value: answer === correctAnswer ? 5 : 0}));
-  };
+  const handleScore = (answer: string): void => onAnswered(answer);
 
   return (
       <div className={`${styles.questionContainer} container`}>
@@ -28,7 +23,7 @@ export const BooleanQuestion = ({question, correctAnswer}: BooleanQuestionProps)
                 name={`answer-${question.question}`}
                 value="True"
                 id={`true-${question.question}`}
-                onClick={() => handleScore(question, 'True', correctAnswer)}
+                onClick={() => handleScore('True')}
             />
             <label
                 className={`${styles.answerLabel} form-check-label`}
@@ -44,7 +39,7 @@ export const BooleanQuestion = ({question, correctAnswer}: BooleanQuestionProps)
                 name={`answer-${question.question}`}
                 value="False"
                 id={`false-${question.question}`}
-                onClick={() => handleScore(question, 'False', correctAnswer)}
+                onClick={() => handleScore('False')}
             />
             <label
                 className={`${styles.answerLabel} form-check-label`}

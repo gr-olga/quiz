@@ -1,6 +1,4 @@
 import {decodeHTMLEntities} from '../../utilas';
-import {useDispatch} from 'react-redux';
-import {setScore} from '../../store/quizStore.ts';
 import {Question} from '../../types/quizTypes.ts';
 import styles from './multipleQuestion.module.scss';
 
@@ -8,19 +6,12 @@ interface MultipleQuestionProps {
   question: Question;
   correctAnswer: string;
   incorrectAnswers: ReadonlyArray<string>;
+  onAnswered: (answer: string) => void;
 }
 
-
-export const MultipleQuestion = ({question, correctAnswer, incorrectAnswers}: MultipleQuestionProps) => {
-
+export const MultipleQuestion = ({question, correctAnswer, incorrectAnswers, onAnswered}: MultipleQuestionProps) => {
   const answersPool: ReadonlyArray<string> = [...incorrectAnswers, correctAnswer];
-
-  const dispatch = useDispatch();
-
-  const handleScore = (question: Question, answer: string, correctAnswer: string) => {
-    dispatch(setScore({name: question.question, value: answer === correctAnswer ? 10 : 0}));
-
-  };
+  const handleScore = (answer: string): void => onAnswered(answer);
 
   return (
       <div className={styles.questionContainer}>
@@ -33,7 +24,7 @@ export const MultipleQuestion = ({question, correctAnswer, incorrectAnswers}: Mu
                     name={`answer_${question.question}`}
                     value={answer}
                     className={styles.answerInput}
-                    onClick={() => handleScore(question, answer, correctAnswer)}
+                    onClick={() => handleScore(answer)}
                 />
                 {decodeHTMLEntities(answer)}
               </label>
