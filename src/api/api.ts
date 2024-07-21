@@ -13,7 +13,9 @@ export const fetchQuestions = async (category?: number, difficulty?: QuizLevel, 
 };
 
 export const fetchCategories = async (): Promise<ReadonlyArray<QuizCategory>> => {
-  const res: AxiosResponse<{ trivia_categories: ReadonlyArray<QuizCategory> }> = await axios.get('https://opentdb.com/api_category.php').catch((error) => {
+  const res: AxiosResponse<{
+    trivia_categories: ReadonlyArray<QuizCategory>
+  }> = await axios.get('https://opentdb.com/api_category.php').catch((error) => {
     alert('Error fetching categories. Please try again later.');
     return error;
   });

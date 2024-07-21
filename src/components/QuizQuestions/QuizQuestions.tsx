@@ -1,4 +1,4 @@
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Button, Carousel} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {MultipleQuestion} from '../MultipleQuestion/MultipleQuestion.tsx';
@@ -8,7 +8,6 @@ import {Question} from '../../types/quizTypes.ts';
 import {RootState} from '../../store';
 import styles from './quizQuestions.module.scss';
 import {useState} from 'react';
-import {useDispatch} from 'react-redux';
 import {setScore} from '../../store/quizStore.ts';
 
 export const QuizQuestions = () => {
@@ -30,7 +29,7 @@ export const QuizQuestions = () => {
   const currentAnswer = {
     question: '',
     scoreValue: 0
-  }
+  };
 
   const onAnswered = (question: Question, answer: string, correctAnswer: string, scoreValue: number): void => {
     currentAnswer.question = question.question;
@@ -64,7 +63,7 @@ export const QuizQuestions = () => {
                       <BooleanQuestion
                           question={question}
                           correctAnswer={question.correct_answer}
-                          onAnswered={(answer: string) => onAnswered(question, answer, question.correct_answer,  scoreValueBoolean)}
+                          onAnswered={(answer: string) => onAnswered(question, answer, question.correct_answer, scoreValueBoolean)}
                       />
                   )}
                 </div>

@@ -5,7 +5,7 @@ interface QuestionsState {
   questions: Question[];
   loading: boolean;
   error: string | null;
-  score: Record<string, number>
+  score: Record<string, number>;
 }
 
 const initialState: QuestionsState = {

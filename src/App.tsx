@@ -88,7 +88,7 @@ function App() {
             <button type="submit" className={styles.formButton}>Start Quiz</button>
           </form>
         </div>
-        { isDone ? <PopUpScore score={score} onClose={() => window.location.reload()}/> : null }
+        {isDone ? <PopUpScore score={score} onClose={() => window.location.reload()}/> : null}
         <div>
           <h1>Quiz</h1>
           <div>Question {currentQuestion >= 10 ? 10 : currentQuestion + 1}/{questionsCount}</div>
